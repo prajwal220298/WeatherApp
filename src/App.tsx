@@ -9,7 +9,7 @@ export const App = () => {
       <img src={LOGO} alt="REACT LOGO" height={200} width={200} />
       <h1>
         React typescript webpack App - {process.env.NODE_ENV} -{' '}
-        {process.env.name}
+        {process.env.name} - {process.env.REACT_APP_WEB_URL}
       </h1>
     </>
   )
