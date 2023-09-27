@@ -1,0 +1,22 @@
+@css {
+    @import url('https://fonts.googleapis.com/css?family=Poppins');
+}
+
+.navigation-link
+  font-size medium
+  font-family: 'Poppins'
+  padding 0px 4px
+  color white
+  text-decoration none
+  &:hover    
+    color rgb(209, 207, 231)
+  &.active
+    color rgb(76, 63, 106)
+    font-weight: 700
+  &.active:hover
+    color rgb(61, 49, 88)
+
+@media (max-width: 900px) 
+  .appbar-logo 
+    display: none
+    padding-right: '8px'
