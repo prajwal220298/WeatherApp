@@ -32,6 +32,47 @@ const renderTextField: React.FC<WrappedFieldProps & TextFieldProps> = ({
     {...custom}
   />
 )
+
+// interface RenderDropDownProps {
+//   label: string
+//   // input: any
+//   // meta: {
+//   //   touched: boolean
+//   //   invalid: boolean
+//   //   error: string
+//   // }
+// }
+
+// const renderDropDown: React.FC<WrappedFieldProps & RenderDropDownProps> = (
+//   props
+// ) => {
+//   let {
+//     label,
+//     input,
+//     // meta: { touched, invalid, error },
+//     ...custom
+//   } = props
+//   return (
+//     <TextField
+//       label={label}
+//       // error={touched && invalid}
+//       // helperText={touched && error}
+//       {...input}
+//       {...custom}
+//     >
+//       <MenuItem key={'Weather Report'} value={'Weather Report'}>
+//         Weather Report
+//       </MenuItem>
+//       <MenuItem key={'UI'} value={'UI'}>
+//         UI
+//       </MenuItem>
+//       <MenuItem key={'Search Option'} value={'Search Option'}>
+//         Search Option
+//       </MenuItem>
+//     </TextField>
+//   )
+// }
+
 const MaterialUiFormComponent: React.FC<ComponentProps> = (props) => {
   const { handleSubmit } = props
 
