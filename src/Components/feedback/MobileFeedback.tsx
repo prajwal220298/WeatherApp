@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Field,
   reduxForm,
@@ -11,25 +11,30 @@ import {
   Radio,
   RadioGroup,
   Typography,
-  Container,
   Paper,
   TextField,
   TextFieldProps,
   RadioGroupProps,
   MenuItem,
   Divider,
+  Snackbar,
+  Alert,
+  Tooltip,
 } from '@mui/material'
+import { useNavigate } from 'react-router'
+import HomeIcon from '@mui/icons-material/Home'
+import './Feedback.styl'
 
 interface FormData {
-  name: string
-  email: string
   accurate: string
-  expectation: string
   recommend: string
   experience: string
   satisfaction: string
-  feature: string
   additional: string
+  firstname: string
+  lastname: string
+  email: string
+  feature: string
 }
 
 const renderTextField: React.FC<WrappedFieldProps & TextFieldProps> = ({
@@ -63,6 +68,7 @@ const renderRadioGroup: React.FC<WrappedFieldProps & RadioGroupProps> = ({
 
 interface RenderDropDownProps {
   label: string
+  input: any
 }
 
 const renderDropDown: React.FC<WrappedFieldProps & RenderDropDownProps> = ({
@@ -77,6 +83,7 @@ const renderDropDown: React.FC<WrappedFieldProps & RenderDropDownProps> = ({
     error={touched && invalid}
     helperText={touched && error}
     {...custom}
+    placeholder={label}
   >
     <MenuItem key={'Weather Report'} value={'Weather Report'}>
       Weather Report
@@ -96,10 +103,10 @@ const validateFields = (values: FormData) => {
     'accurate',
     'recommend',
     'experience',
-    'expectation',
     'satisfaction',
     'additional',
-    'name',
+    'firstname',
+    'lastname',
     'email',
     'feature',
   ]
@@ -114,60 +121,102 @@ const validateFields = (values: FormData) => {
   ) {
     errors.email = 'Invalid email address'
   }
+  if (values.firstname && /^[A-Z][a-z]?$/.test(values.firstname)) {
+    errors.firstname = 'Invalid First Name'
+  }
+  if (values.lastname && /^[A-Z][a-zA-Z]?$/.test(values.lastname)) {
+    errors.lastname = 'Invalid Last Name'
+  }
   return errors
-}
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-const Submit = async (values: FormData) => {
-  await sleep(500) // simulate server latency
-  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
 }
 
 interface FeedbackProps extends InjectedFormProps<FormData> {}
 
-const Feedback: React.FC<FeedbackProps> = (props) => {
-  const { handleSubmit, pristine, submitting, valid } = props
+const MobileFeedback: React.FC<FeedbackProps> = (props) => {
+  const { pristine, submitting, valid, reset } = props
+  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false)
+  const handleSnackbarClose = (): void => {
+    setSnackbarOpen(false)
+  }
+  const handleSnackbarOpen = (): void => {
+    setSnackbarOpen(true)
+  }
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    handleSnackbarOpen()
+    reset()
+  }
+
+  const navigate = useNavigate()
+  const handleNavigate = (): void => {
+    navigate('/')
+  }
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={3} style={{ padding: 20, margin: '20px auto' }}>
-        <form onSubmit={handleSubmit}>
+    <div className="form-container">
+      {/* <Container className="mobilefeed"> */}
+      <Paper elevation={3} className="paper">
+        <form onSubmit={handleSubmit} className="form">
           <Typography variant="h4" align="center" gutterBottom>
-            FeedbackForm
+            <Tooltip title="Home">
+              <HomeIcon
+                style={{ float: 'left', fontSize: '40px', cursor: 'pointer' }}
+                // className="home"
+                onClick={handleNavigate}
+              />
+            </Tooltip>
+            <b>Feedback</b>
           </Typography>
           <Divider />
-          <div style={{ paddingLeft: '20px' }}>
-            <Field
-              style={{
-                paddingRight: '20px',
-                textAlign: 'center',
-              }}
-              name="name"
-              component={renderTextField}
-              label="Name"
-              //   required
-            />
-            <Field
-              style={{ paddingRight: '20px', justifyContent: 'center' }}
-              name="email"
-              component={renderTextField}
-              label="E-mail"
-              //   required
-            />
+
+          <div className="leftpad">
+            <center>
+              <Field
+                sx={{
+                  paddingRight: '20px',
+                  textAlign: 'center',
+                }}
+                name="firstname"
+                component={renderTextField}
+                label="First Name"
+                maxLength="10"
+                // required
+              />
+              <Field
+                sx={{
+                  paddingRight: '20px',
+                  textAlign: 'center',
+                }}
+                name="lastname"
+                component={renderTextField}
+                label="Last Name"
+                maxLength={10}
+                // required
+              />
+              <Field
+                sx={{ paddingRight: '20px', textAlign: 'center' }}
+                name="email"
+                component={renderTextField}
+                label="E-mail"
+                // required
+              />
+            </center>
           </div>
+
           <div>
             <Typography gutterBottom align="center">
-              Did you find the results are accurate? *
+              Did you find the results are accurate?
             </Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Field name="accurate" component={renderRadioGroup}>
+              <Field name="accurate" component={renderRadioGroup} required>
                 <FormControlLabel
                   value="Yes"
                   control={<Radio color="primary" />}
                   label="Yes"
                 />
               </Field>
-              <Field name="accurate" component={renderRadioGroup}>
+              <Field name="accurate" component={renderRadioGroup} required>
                 <FormControlLabel
                   value="No"
                   control={<Radio color="primary" />}
@@ -179,7 +228,7 @@ const Feedback: React.FC<FeedbackProps> = (props) => {
 
           <div>
             <Typography gutterBottom align="center">
-              Did our app meet your exceptations? *
+              Did our app meet your exceptations?
             </Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Field name="expectation" component={renderRadioGroup}>
@@ -201,7 +250,7 @@ const Feedback: React.FC<FeedbackProps> = (props) => {
 
           <div>
             <Typography gutterBottom align="center">
-              Would you like to recommend it to others? *
+              Would you like to recommend it to others?
             </Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Field name="recommend" component={renderRadioGroup}>
@@ -223,7 +272,7 @@ const Feedback: React.FC<FeedbackProps> = (props) => {
 
           <div>
             <Typography gutterBottom align="center">
-              How is your experience using this app? *
+              How is your experience using this app?
             </Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Field name="experience" component={renderRadioGroup}>
@@ -260,7 +309,7 @@ const Feedback: React.FC<FeedbackProps> = (props) => {
 
           <div>
             <Typography gutterBottom align="center">
-              Rate your satisfaction using this app? *
+              Rate your satisfaction using this app?
             </Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Field name="satisfaction" component={renderRadioGroup}>
@@ -304,41 +353,41 @@ const Feedback: React.FC<FeedbackProps> = (props) => {
 
           <div>
             <Typography gutterBottom align="center">
-              Which feature do you like the most? *
+              Which feature do you like the most?
             </Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Field
                 name="feature"
                 component={renderDropDown}
+                label="--Select Feature--"
                 select
                 //style={{ alignItems: 'center' }}
                 sx={{ width: '220px' }}
-                required
               />
             </div>
           </div>
 
-          {/* <div>
+          <div>
             <Typography
               gutterBottom
               align="center"
               style={{ paddingTop: '15px' }}
             >
-              Additional Comments *
+              Additional Comments
             </Typography>
             <Field
               name="additional"
-              component={TextField}
+              component={renderTextField}
               multiline
               rows={4}
               variant="outlined"
               fullWidth
-              required
             />
-          </div> */}
+          </div>
 
           <div
-            style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}
+            // style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}
+            className="button"
           >
             <Button
               type="submit"
@@ -349,15 +398,39 @@ const Feedback: React.FC<FeedbackProps> = (props) => {
               {submitting ? 'Submitting' : 'Submit'}
             </Button>
             &nbsp;&nbsp;
+            <Button
+              type="button"
+              variant="contained"
+              color="error"
+              disabled={pristine || submitting || !valid}
+              onClick={reset}
+            >
+              Reset
+            </Button>
           </div>
         </form>
       </Paper>
-    </Container>
+
+      <Snackbar
+        autoHideDuration={3000}
+        open={snackbarOpen}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          // sx={{ width: '100%', marginBottom: 4 }}
+          className="alert"
+        >
+          Feedback Form Submitted Successfully!!!
+        </Alert>
+      </Snackbar>
+      {/* </Container> */}
+    </div>
   )
 }
 
 export default reduxForm<FormData>({
   form: 'feedbackform',
   validate: validateFields,
-  onSubmit: Submit,
-})(Feedback)
+})(MobileFeedback)
