@@ -4,8 +4,8 @@ import Header from './Components/header-footer/Header'
 import Homepage from './Components/Homepage'
 import Favorites from './Components/Favorites'
 import RecentSearch from './Components/RecentSearch'
-import Feedback from './Components/Feedback'
 import ContactUs from './Components/ContactUs'
+import Feedback from './Components/feedback/Feedback'
 
 export const App = () => {
   return (
