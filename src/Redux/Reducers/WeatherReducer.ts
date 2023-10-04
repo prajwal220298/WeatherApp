@@ -18,7 +18,8 @@ export const currentWeatherReducer = (
       return { ...state, loading: false, weatherData: action.payload }
     case ActionTypes.FETCH_CURRENT_WEATHER_DETAILS_FAILURE:
       return { ...state, loading: false, errorMsg: action.payload }
-
+    case ActionTypes.CHANGE_FAVOURITE_STATE:
+      return { ...state, loading: false, weatherData: action.payload }
     default:
       return state
   }
