@@ -15,7 +15,12 @@ export const currentWeatherReducer = (
     case ActionTypes.FETCH_CURREENT_WEATHER_DETAILS_REQUEST:
       return { ...state, loading: true }
     case ActionTypes.FETCH_CURRENT_WEATHER_DETAILS:
-      return { ...state, loading: false, weatherData: action.payload }
+      return {
+        ...state,
+        loading: false,
+        weatherData: action.payload,
+        errorMsg: '',
+      }
     case ActionTypes.FETCH_CURRENT_WEATHER_DETAILS_FAILURE:
       return { ...state, loading: false, errorMsg: action.payload }
 

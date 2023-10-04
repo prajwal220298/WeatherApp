@@ -11,7 +11,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
 
 const pages = [
   {
@@ -31,16 +30,10 @@ const pages = [
 
 type props = {
   selectedIndex: number | undefined
-  open: boolean
+  handleRouting: (event: React.MouseEvent<HTMLElement>, to: string) => void
 }
 
-export default function DrawerList({ selectedIndex, open }: props) {
-  const navigate = useNavigate()
-  const handleRouting = (event: React.MouseEvent<HTMLElement>, to: string) => {
-    event.stopPropagation()
-    open = !open
-    navigate(to)
-  }
+export default function DrawerList({ selectedIndex, handleRouting }: props) {
   return (
     <List>
       <ListItem disablePadding divider>

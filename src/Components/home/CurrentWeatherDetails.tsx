@@ -26,7 +26,7 @@ const CurrentWeatherDetails = ({
         fetchWeatherData(latitude, longitude)
       })
     }
-  }, [])
+  }, [fetchWeatherData])
 
   useEffect(() => {
     getGeolocation()
@@ -39,7 +39,10 @@ const CurrentWeatherDetails = ({
       ) : (
         <>
           {weatherStateValue?.errorMsg !== '' ? (
-            <h1>Data illa !!!!!- {weatherStateValue?.errorMsg}</h1>
+            <h1>
+              {weatherStateValue?.errorMsg} - Please provide the proper City
+              name
+            </h1>
           ) : (
             <>
               <WeatherDetails weatherReport={weatherStateValue?.weatherData} />
