@@ -41,3 +41,23 @@ export const changeFavouriteState =
       payload: { ...details },
     })
   }
+
+export const fetchCurrentWeatherDetailsByCityName =
+  (cityName: string): ThunkAction<void, RootState, null, WeatherActions> =>
+  async (dispatch) => {
+    dispatch({ type: ActionTypes.FETCH_CURREENT_WEATHER_DETAILS_REQUEST })
+    await axios
+      .get(`${webUrl}?q=${cityName}&units=metric&appid=${CURRENT_WEATHER_API}`)
+      .then((response) =>
+        dispatch({
+          type: ActionTypes.FETCH_CURRENT_WEATHER_DETAILS,
+          payload: response.data,
+        })
+      )
+      .catch((err) =>
+        dispatch({
+          type: ActionTypes.FETCH_CURRENT_WEATHER_DETAILS_FAILURE,
+          payload: err.message,
+        })
+      )
+  }

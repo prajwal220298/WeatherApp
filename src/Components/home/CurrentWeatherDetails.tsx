@@ -7,6 +7,8 @@ import { WeatherState } from '../../Redux/types'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Box, Stack } from '@mui/material'
 import WeatherDetails from './WeatherDetails'
+// import { getBgImage } from '../../services/utility'
+import bgImg from '../../assets/WeatherBgImg.png'
 
 interface DispatchProps {
   fetchWeatherData: (latitude: number, longitude: number) => void
@@ -20,15 +22,23 @@ const CurrentWeatherDetails = ({
   weatherStateValue,
   fetchWeatherData,
 }: Props) => {
+  // const [bgImg, setBgImg] = useState<string>('')
+
+  // const getImage = useCallback(async () => {
+  //   const image = await getBgImage(weatherStateValue?.weatherData)
+  //   setBgImg(image.photos[0].src.landscape)
+  // }, [weatherStateValue?.weatherData])
+
   const getGeolocation = useCallback(async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const latitude: number = position.coords.latitude
         const longitude: number = position.coords.longitude
         fetchWeatherData(latitude, longitude)
+        // getImage()
       })
     }
-  }, [])
+  }, [fetchWeatherData])
 
   useEffect(() => {
     getGeolocation()
@@ -37,7 +47,11 @@ const CurrentWeatherDetails = ({
   return (
     <Box
       sx={{
-        background: 'linear-gradient(to right, #12c2e9, #c471ed, #f64f59)',
+        // backgroundImage: `url(${getImage()})`,
+        backgroundImage: `url(${bgImg})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       {weatherStateValue?.loading ? (
@@ -47,7 +61,10 @@ const CurrentWeatherDetails = ({
       ) : (
         <>
           {weatherStateValue?.errorMsg !== '' ? (
-            <h1>Data illa !!!!!- {weatherStateValue?.errorMsg}</h1>
+            <h1>
+              {weatherStateValue?.errorMsg} - Please provide the proper City
+              name
+            </h1>
           ) : (
             <>
               {weatherStateValue?.weatherData != null && (
