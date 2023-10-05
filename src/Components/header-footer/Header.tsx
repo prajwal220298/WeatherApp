@@ -275,7 +275,7 @@ export default function Header() {
           </div>
         </Main>
       </Box>
-      <Footer></Footer>
+      <Footer />
     </>
   )
 }

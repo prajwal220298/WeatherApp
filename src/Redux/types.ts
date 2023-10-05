@@ -19,6 +19,7 @@ export interface WeatherData {
   }
   dt: number
   id: number
+  isFavourite: boolean
   main: {
     feels_like: number
     humidity: number
