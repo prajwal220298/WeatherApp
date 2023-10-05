@@ -5,7 +5,7 @@ import Favorites from './Components/Favorites'
 import RecentSearch from './Components/RecentSearch'
 import CurrentWeatherDetails from './Components/home/CurrentWeatherDetails'
 import Feedback from './Components/feedback/Feedback'
-import Contact from './Components/Contacts'
+import Contact from './Components/contact-us/Contact'
 
 export const App = () => {
   return (
