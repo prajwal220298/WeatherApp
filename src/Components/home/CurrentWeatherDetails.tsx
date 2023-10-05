@@ -9,6 +9,7 @@ import { Box, Stack } from '@mui/material'
 import WeatherDetails from './WeatherDetails'
 // import { getBgImage } from '../../services/utility'
 import bgImg from '../../assets/WeatherBgImg.png'
+import AdditionalInfo from './AdditionalInfo'
 
 interface DispatchProps {
   fetchWeatherData: (latitude: number, longitude: number) => void
@@ -68,9 +69,14 @@ const CurrentWeatherDetails = ({
           ) : (
             <>
               {weatherStateValue?.weatherData != null && (
-                <WeatherDetails
-                  weatherReport={weatherStateValue?.weatherData}
-                />
+                <>
+                  <WeatherDetails
+                    weatherReport={weatherStateValue?.weatherData}
+                  />
+                  <AdditionalInfo
+                    additionalInfo={weatherStateValue?.weatherData}
+                  />
+                </>
               )}
             </>
           )}

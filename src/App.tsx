@@ -2,10 +2,10 @@ import { Route, Routes } from 'react-router-dom'
 import './styles.styl'
 import Header from './Components/header-footer/Header'
 import Favorites from './Components/Favorites'
-import RecentSearch from './Components/RecentSearch'
 import CurrentWeatherDetails from './Components/home/CurrentWeatherDetails'
 import Feedback from './Components/feedback/Feedback'
 import Contact from './Components/Contacts'
+import RecentSearch from './Components/recent-search/RecentSearch'
 
 export const App = () => {
   return (
