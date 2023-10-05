@@ -32,6 +32,7 @@ const renderTextField: React.FC<WrappedFieldProps & TextFieldProps> = ({
     {...custom}
   />
 )
+
 const MaterialUiFormComponent: React.FC<ComponentProps> = (props) => {
   const { handleSubmit } = props
 

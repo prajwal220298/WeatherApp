@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ActionTypes } from '../Constants/ActionTypes'
-import { WeatherActions } from '../types'
+import { WeatherActions, WeatherData } from '../types'
 import { RootState } from '../Reducers'
 import { ThunkAction } from 'redux-thunk'
 
@@ -21,7 +21,7 @@ export const fetchCurrentWeatherDetails =
       .then((response) =>
         dispatch({
           type: ActionTypes.FETCH_CURRENT_WEATHER_DETAILS,
-          payload: response.data,
+          payload: { ...response.data, isFavourite: false },
         })
       )
       .catch((err) =>
@@ -30,4 +30,14 @@ export const fetchCurrentWeatherDetails =
           payload: err.message,
         })
       )
+  }
+
+export const changeFavouriteState =
+  (details: WeatherData): ThunkAction<void, RootState, null, WeatherActions> =>
+  (dispatch) => {
+    console.log('details', details)
+    dispatch({
+      type: ActionTypes.CHANGE_FAVOURITE_STATE,
+      payload: { ...details },
+    })
   }

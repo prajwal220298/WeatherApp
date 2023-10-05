@@ -5,6 +5,7 @@ import { RootState } from '../../Redux/Reducers'
 import { ThunkDispatch } from 'redux-thunk'
 import { WeatherState } from '../../Redux/types'
 import CircularProgress from '@mui/material/CircularProgress'
+import { Box, Stack } from '@mui/material'
 import WeatherDetails from './WeatherDetails'
 
 interface DispatchProps {
@@ -14,6 +15,7 @@ interface StateProps {
   weatherStateValue: WeatherState | null
 }
 type Props = StateProps & DispatchProps
+
 const CurrentWeatherDetails = ({
   weatherStateValue,
   fetchWeatherData,
@@ -33,21 +35,31 @@ const CurrentWeatherDetails = ({
   }, [getGeolocation])
 
   return (
-    <>
+    <Box
+      sx={{
+        background: 'linear-gradient(to right, #12c2e9, #c471ed, #f64f59)',
+      }}
+    >
       {weatherStateValue?.loading ? (
-        <CircularProgress />
+        <Stack alignItems="center">
+          <CircularProgress />
+        </Stack>
       ) : (
         <>
           {weatherStateValue?.errorMsg !== '' ? (
             <h1>Data illa !!!!!- {weatherStateValue?.errorMsg}</h1>
           ) : (
             <>
-              <WeatherDetails weatherReport={weatherStateValue?.weatherData} />
+              {weatherStateValue?.weatherData != null && (
+                <WeatherDetails
+                  weatherReport={weatherStateValue?.weatherData}
+                />
+              )}
             </>
           )}
         </>
       )}
-    </>
+    </Box>
   )
 }
 
