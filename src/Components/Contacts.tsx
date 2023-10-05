@@ -5,8 +5,6 @@ import { MobileView } from './MobileView'
 import ContactUs from './ContactUs'
 const Contact = () => {
   const isMobile = useMediaQuery('(max-width:900px)')
-  console.log('isMobile------------>', isMobile)
-
   return (
     <>
       <Container maxWidth={isMobile ? 'sm' : 'md'}>
