@@ -1,13 +1,15 @@
 import { Box } from '@mui/material'
+// import { Container } from '@mui/material'
 import React from 'react'
+import { ContactForm } from './ContactForm'
 
 function ContactUs() {
   return (
     <>
-      <Box
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <h1>ContactUs Component</h1>
+      <Box>
+        {/* <Container> */}
+        <ContactForm />
+        {/* </Container> */}
       </Box>
     </>
   )

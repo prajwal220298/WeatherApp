@@ -8,7 +8,6 @@ import {
 import {
   Alert,
   Button,
-  Container,
   Divider,
   FormControlLabel,
   FormControlLabelProps,
@@ -113,7 +112,6 @@ const Submit = async (values: FormData) => {
 
 const MaterialUiFormComponent: FC<ComponentProps> = (props) => {
   const { pristine, reset, valid, submitting } = props
-  //   const navigate = useNavigate()
 
   const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false)
   const handleSnackbarClose = (): void => {
@@ -135,91 +133,85 @@ const MaterialUiFormComponent: FC<ComponentProps> = (props) => {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={1}>
-        <div className="container">
-          <form onSubmit={handleSubmit}>
-            <Typography variant="h4" align="center" gutterBottom>
-              <Tooltip title="Home">
-                <HomeIcon
-                  style={{ float: 'left', fontSize: '40px', cursor: 'pointer' }}
-                  className="home"
-                  onClick={handleNavigate}
-                />
-              </Tooltip>
+    <div className="form-container">
+      <Paper elevation={3} className="paper" sx={{ width: '300px' }}>
+        <form onSubmit={handleSubmit}>
+          <Typography variant="h4" align="center" gutterBottom>
+            <Tooltip title="Home">
+              <HomeIcon
+                style={{ float: 'left', fontSize: '40px', cursor: 'pointer' }}
+                className="home"
+                onClick={handleNavigate}
+              />
+            </Tooltip>
 
-              <b className="iconh">Contact </b>
-            </Typography>
-            <Divider />
-            <div className="input">
-              <Field
-                name="firstName"
-                component={renderTextField}
-                label="First Name"
-              />
-            </div>
-            <div className="input">
-              <Field
-                name="lastName"
-                component={renderTextField}
-                label="Last Name"
-              />
-            </div>
-            <div className="rediobutton">
-              <Field name="sex" component={renderRadioGroup}>
-                Gender
-                <label>
-                  <Field
-                    name="sex"
-                    component="input"
-                    type="radio"
-                    value="male"
-                  />{' '}
-                  Male
-                </label>
-                <label>
-                  <Field
-                    name="sex"
-                    component="input"
-                    type="radio"
-                    value="female"
-                  />{' '}
-                  Female
-                </label>
-              </Field>
-            </div>
+            <b className="iconh">Contact </b>
+          </Typography>
+          <Divider />
+          <div className="input">
+            <Field
+              name="firstName"
+              component={renderTextField}
+              label="First Name"
+            />
+          </div>
+          <div className="input">
+            <Field
+              name="lastName"
+              component={renderTextField}
+              label="Last Name"
+            />
+          </div>
+          <div className="rediobutton">
+            <Field name="sex" component={renderRadioGroup}>
+              Gender
+              <label>
+                <Field name="sex" component="input" type="radio" value="male" />{' '}
+                Male
+              </label>
+              <label>
+                <Field
+                  name="sex"
+                  component="input"
+                  type="radio"
+                  value="female"
+                />{' '}
+                Female
+              </label>
+            </Field>
+          </div>
 
-            <div className="input">
-              <Field name="email" component={renderTextField} label="Email" />
-            </div>
-            <div className="checkbox">
-              <Field
-                name="employed"
-                component={renderCheckbox}
-                label="Contact By Email"
-              />
-            </div>
-            <div className="button">
-              <Button
-                type="submit"
-                variant="outlined"
-                color="primary"
-                disabled={pristine || submitting || !valid}
-              >
-                Submit
-              </Button>
-              <Button
-                type="button"
-                variant="outlined"
-                color="primary"
-                disabled={pristine || submitting}
-                onClick={reset}
-              >
-                Clear Values
-              </Button>
-            </div>
-          </form>
-        </div>
+          <div className="input">
+            <Field name="email" component={renderTextField} label="Email" />
+          </div>
+          <div className="checkbox">
+            <Field
+              name="employed"
+              component={renderCheckbox}
+              label="Contact By Email"
+            />
+          </div>
+          <div className="buttons">
+            <Button
+              sx={{ marginRight: '12px' }}
+              type="submit"
+              variant="outlined"
+              color="primary"
+              disabled={pristine || submitting || !valid}
+            >
+              Submit
+            </Button>
+            <Button
+              type="button"
+              variant="outlined"
+              color="primary"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
+              Clear Values
+            </Button>
+          </div>
+        </form>
       </Paper>
       <Snackbar
         autoHideDuration={3000}
@@ -234,11 +226,11 @@ const MaterialUiFormComponent: FC<ComponentProps> = (props) => {
           Contact Form Submitted Successfully!!!
         </Alert>
       </Snackbar>
-    </Container>
+    </div>
   )
 }
 
-export const ContactForm = reduxForm<FormData>({
+export const MobileView = reduxForm<FormData>({
   form: 'MaterialUiForm',
   validate: validateFields,
   onSubmit: Submit,
