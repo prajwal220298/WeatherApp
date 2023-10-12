@@ -35,13 +35,29 @@ export const fetchCurrentWeatherDetails =
 export const changeFavouriteState =
   (details: WeatherData): ThunkAction<void, RootState, null, WeatherActions> =>
   (dispatch) => {
-    console.log('details', details)
     dispatch({
       type: ActionTypes.CHANGE_FAVOURITE_STATE,
       payload: { ...details },
     })
   }
 
+export const addToFavorites =
+  (details: WeatherData): ThunkAction<void, RootState, null, WeatherActions> =>
+  (dispatch) => {
+    dispatch({
+      type: ActionTypes.ADD_TO_FAVORITES,
+      payload: { ...details },
+    })
+  }
+
+export const removeFromFavorites =
+  (id: number): ThunkAction<void, RootState, null, WeatherActions> =>
+  (dispatch) => {
+    dispatch({
+      type: ActionTypes.REMOVE_FROM_FAVORITES,
+      payload: { id: id },
+    })
+  }
 export const fetchCurrentWeatherDetailsByCityName =
   (cityName: string): ThunkAction<void, RootState, null, WeatherActions> =>
   async (dispatch) => {

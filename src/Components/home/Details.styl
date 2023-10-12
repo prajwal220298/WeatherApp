@@ -1,0 +1,62 @@
+textPrimary = #4c3f6a
+
+
+boxCentre(dir)
+  display flex
+  justify-content center
+  align-items center
+  flex-direction dir
+
+.weatherDetailsContainer 
+  boxCentre(column)
+
+.leftContainer
+  boxCentre(column)
+  width 500px
+  margin-top 22px
+  &>button 
+    &>h4
+      color textPrimary
+      font-size 28px
+      padding-left 6px
+      font-family 'Poppins'
+      letter-spacing 8px
+      
+
+.letContainerImage 
+  boxCentre(column)
+.leftContent 
+  boxCentre(column)
+  & > h1
+    color textPrimary
+    letter-spacing 2px
+  & > h4 
+    color textPrimary
+    letter-spacing 2px
+    text-transform uppercase
+    padding 20px
+
+.rightContent 
+  boxCentre(column)
+  gap 20px
+
+.rightContainer
+  text-align center
+ 
+.rightContentText
+  margin 20px 10px
+  font-family 'Poppins'
+
+  & > span  
+    color textPrimary
+    font-size 28px
+    font-family bold
+
+ @media screen and (min-width: 600px)
+    .weatherDetailsContainer 
+      boxCentre(row)
+    .rightContent
+      boxCentre(row)
+      flex-wrap wrap
+      margin 12px
+
