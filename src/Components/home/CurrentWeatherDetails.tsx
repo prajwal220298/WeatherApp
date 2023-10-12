@@ -33,7 +33,6 @@ const CurrentWeatherDetails = ({
   useEffect(() => {
     getGeolocation()
   }, [getGeolocation])
-
   return (
     <Box
       sx={{

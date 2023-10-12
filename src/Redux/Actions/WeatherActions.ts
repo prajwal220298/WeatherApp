@@ -41,3 +41,22 @@ export const changeFavouriteState =
       payload: { ...details },
     })
   }
+
+export const addToFavorites =
+  (details: WeatherData): ThunkAction<void, RootState, null, WeatherActions> =>
+  (dispatch) => {
+    console.log('i am inside weather actions...')
+    dispatch({
+      type: ActionTypes.ADD_TO_FAVORITES,
+      payload: { ...details },
+    })
+  }
+
+export const removeFromFavorites =
+  (id: number): ThunkAction<void, RootState, null, WeatherActions> =>
+  (dispatch) => {
+    dispatch({
+      type: ActionTypes.REMOVE_FROM_FAVORITES,
+      payload: { id: id },
+    })
+  }

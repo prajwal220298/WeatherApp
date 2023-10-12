@@ -14,7 +14,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { ThunkDispatch } from 'redux-thunk'
 import { connect } from 'react-redux'
-import { changeFavouriteState } from '../../Redux/Actions/WeatherActions'
+import {
+  addToFavorites,
+  changeFavouriteState,
+  removeFromFavorites,
+} from '../../Redux/Actions/WeatherActions'
 import { getWeatherIcon } from '../../services/utility'
 
 type Temp = {
@@ -33,27 +37,37 @@ const ButtonStyle = {
 
 interface DispatchProps {
   changeTheFavouriteState: (details: WeatherData) => void
+  addToFavorites: (details: WeatherData) => void
+  removeFromFavorites: (details: number) => void
 }
 interface StateProps {
   weatherReport: WeatherData | null
 }
 type Props = StateProps & DispatchProps
 
-const WeatherDetails = ({ weatherReport, changeTheFavouriteState }: Props) => {
+const WeatherDetails = ({
+  weatherReport,
+  changeTheFavouriteState,
+  addToFavorites,
+  removeFromFavorites,
+}: Props) => {
+  const weatherIcon = getWeatherIcon(weatherReport)
+
+  const handleAddtoFav = (details: WeatherData) => {
+    console.log('added...')
+    changeTheFavouriteState({ ...details, isFavourite: true })
+    addToFavorites({ ...details })
+  }
+  const handleRemoveFromFav = (details: WeatherData) => {
+    console.log('removed...')
+    changeTheFavouriteState({ ...details, isFavourite: false })
+    removeFromFavorites(details.id)
+  }
+
   const [fahrenheit, setFahrenheit] = useState<Temp>({
     isFahrenheit: false,
     fahrenheit: '',
   })
-
-  const weatherIcon = getWeatherIcon(weatherReport)
-
-  const handleAddtoFav = (details: WeatherData) => {
-    changeTheFavouriteState({ ...details, isFavourite: true })
-  }
-  const removeFav = (details: WeatherData) => {
-    changeTheFavouriteState({ ...details, isFavourite: false })
-  }
-
   const convertToFahrenheit = (celsius: number) => {
     const fahrenheit = ((9 * celsius + 32 * 5) / 5).toFixed(2)
     setFahrenheit({
@@ -121,7 +135,7 @@ const WeatherDetails = ({ weatherReport, changeTheFavouriteState }: Props) => {
                           <FavoriteIcon
                             sx={{ color: '#4c3f6a', cursor: 'pointer' }}
                             onClick={() => {
-                              removeFav(weatherReport)
+                              handleRemoveFromFav(weatherReport)
                             }}
                           />
                         </IconButton>
@@ -235,7 +249,16 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     changeTheFavouriteState: async (details) => {
+      console.log('state changes...')
       dispatch(changeFavouriteState(details))
+    },
+    addToFavorites: async (details) => {
+      console.log('add to favorites...')
+      dispatch(addToFavorites(details))
+    },
+    removeFromFavorites: async (details) => {
+      console.log('removed from favorites...')
+      dispatch(removeFromFavorites(details))
     },
   }
 }
