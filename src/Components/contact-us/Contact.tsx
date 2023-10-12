@@ -1,8 +1,8 @@
 import { Container, useMediaQuery } from '@mui/material'
 import './Contact.styl'
 import { MobileView } from './MobileView'
-
 import ContactUs from './ContactUs'
+
 const Contact = () => {
   const isMobile = useMediaQuery('(max-width:900px)')
   return (

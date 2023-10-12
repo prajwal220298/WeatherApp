@@ -85,7 +85,7 @@ const WeatherDetails = ({
   return (
     <Box sx={{ padding: '30px 10px' }}>
       {weatherReport === null ? (
-        <h1>Something went wrong </h1>
+        <h1>Something went wrong, please check the CityName </h1>
       ) : (
         <>
           <Box
