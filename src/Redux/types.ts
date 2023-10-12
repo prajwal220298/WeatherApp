@@ -51,6 +51,10 @@ export interface WeatherState {
   errorMsg: string
 }
 
+export interface FavoriteState {
+  favItems: Array<WeatherData | null>
+}
+
 interface GetWeatherAction {
   type: typeof ActionTypes.FETCH_CURRENT_WEATHER_DETAILS
   payload: WeatherData
