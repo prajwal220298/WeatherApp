@@ -42,9 +42,13 @@ const Favorites = ({ favoriteState, removeFromFavorites }: any) => {
           marginTop: '10px',
         }}
       >
-        <Typography variant="subtitle1">
-          {favItems.length} City added as favourite
-        </Typography>
+        {favItems.length === 0 ? (
+          ''
+        ) : (
+          <Typography variant="subtitle1">
+            {favItems.length} City added as favourite
+          </Typography>
+        )}
       </Box>
 
       {favItems.length === 0 ? (
