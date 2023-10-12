@@ -9,7 +9,6 @@ import { Box, Stack } from '@mui/material'
 import WeatherDetails from './WeatherDetails'
 // import { getBgImage } from '../../services/utility'
 import bgImg from '../../assets/WeatherBgImg.png'
-import AdditionalInfo from './AdditionalInfo'
 
 interface DispatchProps {
   fetchWeatherData: (latitude: number, longitude: number) => void
@@ -52,10 +51,14 @@ const CurrentWeatherDetails = ({
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        minHeight: {
+          xs: '100%',
+          lg: '100vh',
+        },
       }}
     >
       {weatherStateValue?.loading ? (
-        <Stack alignItems="center">
+        <Stack alignItems="center" sx={{ padding: '180px' }}>
           <CircularProgress />
         </Stack>
       ) : (
@@ -71,9 +74,6 @@ const CurrentWeatherDetails = ({
                 <>
                   <WeatherDetails
                     weatherReport={weatherStateValue?.weatherData}
-                  />
-                  <AdditionalInfo
-                    additionalInfo={weatherStateValue?.weatherData}
                   />
                 </>
               )}

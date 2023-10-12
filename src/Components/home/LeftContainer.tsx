@@ -12,6 +12,13 @@ import PlaceIcon from '@mui/icons-material/Place'
 import './Details.styl'
 import { WeatherData } from '../../Redux/types'
 import { getWeatherIcon } from '../../services/utility'
+import { connect } from 'react-redux'
+import {
+  addToFavorites,
+  changeFavouriteState,
+  removeFromFavorites,
+} from '../../Redux/Actions/WeatherActions'
+import { ThunkDispatch } from 'redux-thunk'
 
 const ButtonStyle = {
   color: '#ccc',
@@ -25,13 +32,22 @@ type Temp = {
   isFahrenheit: boolean
   fahrenheit: string
 }
-
-type Props = {
+interface DispatchProps {
+  changeTheFavouriteState: (details: WeatherData) => void
+  addToFavorites: (details: WeatherData) => void
+  removeFromFavorites: (details: number) => void
+}
+interface StateProps {
   weatherReport: WeatherData
 }
+type Props = StateProps & DispatchProps
 
-const LeftContainer = ({ weatherReport }: Props) => {
-  const [isFavourite, setIsFavourite] = useState(false)
+const LeftContainer = ({
+  weatherReport,
+  changeTheFavouriteState,
+  addToFavorites,
+  removeFromFavorites,
+}: Props) => {
   const [fahrenheit, setFahrenheit] = useState<Temp>({
     isFahrenheit: false,
     fahrenheit: '',
@@ -39,6 +55,15 @@ const LeftContainer = ({ weatherReport }: Props) => {
   const [alignment, setAlignment] = React.useState('left')
 
   const weatherIcon = getWeatherIcon(weatherReport)
+
+  const handleAddtoFav = (details: WeatherData) => {
+    changeTheFavouriteState({ ...details, isFavourite: true })
+    addToFavorites({ ...details })
+  }
+  const handleRemoveFromFav = (details: WeatherData) => {
+    changeTheFavouriteState({ ...details, isFavourite: false })
+    removeFromFavorites(details.id)
+  }
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -67,13 +92,13 @@ const LeftContainer = ({ weatherReport }: Props) => {
           <Typography variant="h4">{weatherReport?.name}</Typography>
         </IconButton>
         <Box>
-          {isFavourite ? (
+          {weatherReport?.isFavourite ? (
             <>
               <IconButton>
                 <FavoriteIcon
                   sx={{ color: '#4c3f6a', cursor: 'pointer' }}
                   onClick={() => {
-                    setIsFavourite(false)
+                    handleRemoveFromFav(weatherReport)
                   }}
                 />
               </IconButton>
@@ -87,7 +112,7 @@ const LeftContainer = ({ weatherReport }: Props) => {
                 <FavoriteBorderIcon
                   sx={{ color: '#4c3f6a', cursor: 'pointer' }}
                   onClick={() => {
-                    setIsFavourite(true)
+                    handleAddtoFav(weatherReport)
                   }}
                 />
               </IconButton>
@@ -148,4 +173,19 @@ const LeftContainer = ({ weatherReport }: Props) => {
     </Box>
   )
 }
-export default LeftContainer
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, any>
+): DispatchProps => {
+  return {
+    changeTheFavouriteState: async (details) => {
+      dispatch(changeFavouriteState(details))
+    },
+    addToFavorites: async (details) => {
+      dispatch(addToFavorites(details))
+    },
+    removeFromFavorites: async (details) => {
+      dispatch(removeFromFavorites(details))
+    },
+  }
+}
+export default connect(null, mapDispatchToProps)(LeftContainer)

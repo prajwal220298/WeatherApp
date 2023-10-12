@@ -64,6 +64,7 @@ const SearchBar = ({ fetchWeatherDataByCityName }: Props) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     fetchWeatherDataByCityName(city)
+    setCity('')
   }
   return (
     <Search>
@@ -78,6 +79,7 @@ const SearchBar = ({ fetchWeatherDataByCityName }: Props) => {
           value={city}
           type="search"
           onChange={handleChange}
+          autoComplete="off"
         />
       </form>
     </Search>
