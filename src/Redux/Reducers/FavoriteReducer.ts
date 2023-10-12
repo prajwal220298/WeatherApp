@@ -16,7 +16,6 @@ const favoriteReducer = (
         favItems: [...state.favItems, action.payload],
       }
     case ActionTypes.REMOVE_FROM_FAVORITES:
-      console.log('identify the id ', action.payload.id)
       return {
         ...state,
         favItems: [

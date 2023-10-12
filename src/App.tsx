@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import './styles.styl'
 import Header from './Components/header-footer/Header'
-import Favorites from './Components/Favorites'
+import Favorites from './Components/Favorites/Favorites'
 import RecentSearch from './Components/RecentSearch'
 import CurrentWeatherDetails from './Components/home/CurrentWeatherDetails'
 import Feedback from './Components/feedback/Feedback'

@@ -35,7 +35,6 @@ export const fetchCurrentWeatherDetails =
 export const changeFavouriteState =
   (details: WeatherData): ThunkAction<void, RootState, null, WeatherActions> =>
   (dispatch) => {
-    console.log('details', details)
     dispatch({
       type: ActionTypes.CHANGE_FAVOURITE_STATE,
       payload: { ...details },
@@ -45,7 +44,6 @@ export const changeFavouriteState =
 export const addToFavorites =
   (details: WeatherData): ThunkAction<void, RootState, null, WeatherActions> =>
   (dispatch) => {
-    console.log('i am inside weather actions...')
     dispatch({
       type: ActionTypes.ADD_TO_FAVORITES,
       payload: { ...details },

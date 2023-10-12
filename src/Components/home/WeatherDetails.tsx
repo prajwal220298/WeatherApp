@@ -54,12 +54,10 @@ const WeatherDetails = ({
   const weatherIcon = getWeatherIcon(weatherReport)
 
   const handleAddtoFav = (details: WeatherData) => {
-    console.log('added...')
     changeTheFavouriteState({ ...details, isFavourite: true })
     addToFavorites({ ...details })
   }
   const handleRemoveFromFav = (details: WeatherData) => {
-    console.log('removed...')
     changeTheFavouriteState({ ...details, isFavourite: false })
     removeFromFavorites(details.id)
   }
@@ -249,15 +247,12 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     changeTheFavouriteState: async (details) => {
-      console.log('state changes...')
       dispatch(changeFavouriteState(details))
     },
     addToFavorites: async (details) => {
-      console.log('add to favorites...')
       dispatch(addToFavorites(details))
     },
     removeFromFavorites: async (details) => {
-      console.log('removed from favorites...')
       dispatch(removeFromFavorites(details))
     },
   }

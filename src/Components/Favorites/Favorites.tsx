@@ -1,6 +1,6 @@
-import { RootState } from '../Redux/Reducers'
+import { RootState } from '../../Redux/Reducers'
 import { connect } from 'react-redux'
-import { WeatherData } from '../Redux/types'
+import { WeatherData } from '../../Redux/types'
 import {
   Box,
   Paper,
@@ -16,18 +16,12 @@ import {
 } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import { removeFromFavorites } from '../Redux/Actions/WeatherActions'
-
-// interface StateProps {
-//   weatherReport: WeatherData | null
-// }
+import { removeFromFavorites } from '../../Redux/Actions/WeatherActions'
 
 const Favorites = ({ favoriteState, removeFromFavorites }: any) => {
-  console.log('favoriteState', favoriteState)
   const { favItems } = favoriteState
 
   const handleRemoveFromFav = (id: number) => {
-    console.log('i am inside handle remove')
     removeFromFavorites(id)
   }
 
