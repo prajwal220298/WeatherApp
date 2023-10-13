@@ -229,7 +229,7 @@ export default function Header() {
             handleRouting={handleRouting}
           ></DrawerList>
         </Drawer>
-        <Main open={open}>
+        <Main open={open} sx={{ padding: '0px' }}>
           <div style={{ paddingTop: '25px' }}>
             <Outlet />
           </div>

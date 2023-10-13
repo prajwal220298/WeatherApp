@@ -46,15 +46,18 @@ const CurrentWeatherDetails = ({
   return (
     <Box
       sx={{
-        // backgroundImage: `url(${getImage()})`,
         backgroundImage: `url(${bgImg})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        minHeight: {
+          xs: '100%',
+          lg: '100vh',
+        },
       }}
     >
       {weatherStateValue?.loading ? (
-        <Stack alignItems="center">
+        <Stack alignItems="center" sx={{ padding: '180px' }}>
           <CircularProgress />
         </Stack>
       ) : (
@@ -67,9 +70,11 @@ const CurrentWeatherDetails = ({
           ) : (
             <>
               {weatherStateValue?.weatherData != null && (
-                <WeatherDetails
-                  weatherReport={weatherStateValue?.weatherData}
-                />
+                <>
+                  <WeatherDetails
+                    weatherReport={weatherStateValue?.weatherData}
+                  />
+                </>
               )}
             </>
           )}
