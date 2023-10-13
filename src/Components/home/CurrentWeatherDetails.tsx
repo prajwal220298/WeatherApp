@@ -46,7 +46,6 @@ const CurrentWeatherDetails = ({
   return (
     <Box
       sx={{
-        // backgroundImage: `url(${getImage()})`,
         backgroundImage: `url(${bgImg})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',

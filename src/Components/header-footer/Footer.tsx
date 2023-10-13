@@ -30,7 +30,6 @@ export default function Footer() {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          // minHeight: 'calc(100vh - 164px)',
           position: 'fixed',
           bottom: 0,
           width: '100%',
