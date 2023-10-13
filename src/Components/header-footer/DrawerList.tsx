@@ -4,7 +4,7 @@ import HistoryIcon from '@mui/icons-material/History'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import {
-  // Badge,
+  Badge,
   List,
   ListItem,
   ListItemButton,
@@ -29,11 +29,16 @@ const pages = [
 ]
 
 type props = {
+  count: number
   selectedIndex: number | undefined
   handleRouting: (event: React.MouseEvent<HTMLElement>, to: string) => void
 }
 
-export default function DrawerList({ selectedIndex, handleRouting }: props) {
+export default function DrawerList({
+  selectedIndex,
+  handleRouting,
+  count,
+}: props) {
   return (
     <List>
       <ListItem disablePadding divider>
@@ -57,9 +62,9 @@ export default function DrawerList({ selectedIndex, handleRouting }: props) {
           }}
         >
           <ListItemIcon>
-            {/* <Badge badgeContent={4} color="error"> */}
-            <FavoriteIcon />
-            {/* </Badge> */}
+            <Badge badgeContent={count} color="error">
+              <FavoriteIcon />
+            </Badge>
           </ListItemIcon>
           <ListItemText sx={{ color: 'GrayText' }}>Favorites</ListItemText>
         </ListItemButton>

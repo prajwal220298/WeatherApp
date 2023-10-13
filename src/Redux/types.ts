@@ -49,6 +49,7 @@ export interface WeatherState {
   weatherData: WeatherData | null
   loading: boolean
   errorMsg: string
+  recentSearch: Array<WeatherData | null>
 }
 
 export interface FavoriteState {
