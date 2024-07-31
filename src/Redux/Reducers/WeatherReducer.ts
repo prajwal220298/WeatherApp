@@ -5,6 +5,7 @@ const initialState: WeatherState = {
   loading: false,
   weatherData: null,
   errorMsg: '',
+  recentSearch: [],
 }
 
 export const currentWeatherReducer = (
@@ -20,6 +21,7 @@ export const currentWeatherReducer = (
         loading: false,
         weatherData: action.payload,
         errorMsg: '',
+        recentSearch: state.recentSearch.concat(action.payload),
       }
     case ActionTypes.FETCH_CURRENT_WEATHER_DETAILS_FAILURE:
       return { ...state, loading: false, errorMsg: action.payload }

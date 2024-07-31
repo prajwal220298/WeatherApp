@@ -11,18 +11,15 @@ import FeedbackIcon from '@mui/icons-material/Feedback'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import {
-  // Badge,
-  CssBaseline,
-  Divider,
-  Drawer,
-} from '@mui/material'
+import { Badge, CssBaseline, Divider, Drawer } from '@mui/material'
 import { Outlet, useNavigate, NavLink } from 'react-router-dom'
 import './Header.styl'
 import Footer from './Footer'
 import LOGO from '../../assets/logo_weather.png'
 import DrawerList from './DrawerList'
 import SearchBar from './SearchBar'
+import { RootState } from '../../Redux/Reducers'
+import { connect } from 'react-redux'
 
 const drawerWidth = 240
 
@@ -91,9 +88,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   }),
 }))
 
-export default function Header() {
+function Header({ favoriteState }: any) {
   const navigate = useNavigate()
   const theme = useTheme()
+
+  const badgeItems = favoriteState.favItems.length
+  console.log('favoriteState', badgeItems)
   const [open, setOpen] = React.useState(false)
 
   const [selectedIndex, setSelectedIndex] = React.useState<number>()
@@ -172,9 +172,9 @@ export default function Header() {
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
               <NavLink className="navigation-link" to="/favorite">
                 <IconButton sx={{ color: 'inherit' }}>
-                  {/* <Badge badgeContent={4} color="error"> */}
-                  <FavoriteIcon />
-                  {/* </Badge> */}
+                  <Badge badgeContent={badgeItems} color="error">
+                    <FavoriteIcon />
+                  </Badge>
                 </IconButton>
                 Favorites
               </NavLink>
@@ -225,6 +225,7 @@ export default function Header() {
           </DrawerHeader>
           <Divider />
           <DrawerList
+            count={badgeItems}
             selectedIndex={selectedIndex}
             handleRouting={handleRouting}
           ></DrawerList>
@@ -239,3 +240,11 @@ export default function Header() {
     </>
   )
 }
+
+const mapStateToProps = (state: RootState) => {
+  return {
+    favoriteState: state.favorite,
+  }
+}
+
+export default connect(mapStateToProps, null)(Header)
